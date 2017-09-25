@@ -1,0 +1,34 @@
+# compton
+compton -b --config $HOME/.config/compton.conf &
+
+# laptops without a numpad may want to comment this out
+numlockx &
+
+
+# panel
+(sleep 1; tint2) &
+
+# meta key opens rofi
+ksuperkey -e 'Super_L=Alt_L|F1' &
+
+# wallpaper
+(sleep 1; nitrogen --restore) &
+
+# xfce settings
+xfsettingsd &
+
+
+(sleep 3; thunar --daemon) &
+
+# only used if system tray enabled
+(sleep 2; volumeicon) &
+(sleep 2; nm-applet) &
+
+# skippy
+(sleep 2; skippy-xd --config $HOME/.config/skippy-xd/skippy-xd.rc --start-daemon) &
+(sleep 3; xclip) &
+xfce4-power-manager &
+(sleep 2; pamac-tray) &
+
+# refresh rate
+xrandr --output DVI-1 --mode 1920x1080 --rate 144.00
