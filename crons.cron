@@ -1,0 +1,2 @@
+ #Mins  Hours  Days   Months  Day of the week   command
+  15     1,13   *      *       *                 /sbin/fstrim -v /
