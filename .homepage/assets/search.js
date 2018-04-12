@@ -1,7 +1,6 @@
 // source script by /u/Will_Eccles
 // released under Apache-2.0 license
 // significant changes have been made from source
-// see README for more details
 
 var box = document.getElementById("search");
 
