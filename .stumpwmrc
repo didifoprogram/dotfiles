@@ -1,0 +1,77 @@
+;; -*-lisp-*-
+;;
+;; Here is a sample .stumpwmrc file
+
+(in-package :stumpwm)
+
+;; change the prefix key to something else
+;;(set-prefix-key (kbd "C-z"))
+
+;(set-module-dir
+; (pathname-as-directory (concat (getenv "HOME") "/stumpwm")))
+
+(load-module "ttf-fonts")
+;; Looks
+(set-font (make-instance 'xft:font
+                         :family "Hack"
+                         :subfamily "Regular"
+                         :size 12))
+
+
+;; Disable welcome message
+(setf *startup-message* NIL
+      *suppress-abort-messages* t
+      *shell-program* (getenv "SHELL"))
+
+;; Font
+;(ql:quickload "clx-truetype")
+;(load-module "ttf-fonts")
+;(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 11))
+
+;; Mouse focus
+(setf *mouse-focus-policy* :click)
+
+;; Run or raise
+
+;; launch Web browser
+(defcommand chromium () ()
+  "Start Chromium or switch to it, if it is already running."
+  (run-or-raise "chromium" '(:class "Chromium")))
+(define-key *root-map* (kbd "c") "chromium")
+
+(defcommand alacritty () ()
+  "run or raise alacritty"
+  (run-or-raise "alacritty" '(:class "Alacritty")))
+(define-key *root-map* (kbd "a") "alacritty")
+
+;; Multimedia keys
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
+
+;; Lock
+(define-key *root-map* (kbd "L") "exec xtrlock")
+
+
+;(define-key *root-map* (kbd "w") "windowlist")
+
+(setf *window-name-source* :class)
+(setf *input-window-gravity* :center)
+(setf *message-window-gravity* :center)
+; other options instead of ":sloppy" => :ignore :sloppy :click
+(setf *mouse-focus-policy* :click) 
+
+;some basic window settings
+(setf *normal-border-width* 1)
+(setf *maxsize-border-width* 1)
+(setf *transient-border-width* 1)
+
+; window boroder
+(set-focus-color "#262A22")
+(set-unfocus-color "#262A22")
+(set-win-bg-color "#262A22")
+
+(defvar color1 "#886666")
+(defvar color2 "#222222")
+
+
