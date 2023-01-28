@@ -64,6 +64,7 @@ return packer.startup(function(use)
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons'}
       }
+  use "glepnir/dashboard-nvim"
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
