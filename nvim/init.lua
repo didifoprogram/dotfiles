@@ -80,7 +80,13 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- Keymap for NvimTree
 keymap('n', '<leader>fe', ':NvimTreeToggle<cr>', {desc = "Toggle File explorer",noremap = true, silent = true})
+
+-- Cycle the buffer tabs
 keymap('n', '<S-TAB>', ':BufferLineCycleNext<cr>', opts)
+
+-- go run the current file
+--keymap('n', '<C-r>', ':terminal go run %<cr>', opts)
+keymap('n', '<C-r>', ':TermExec cmd="go run %" <cr>', opts)
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -275,6 +281,12 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+
+-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
