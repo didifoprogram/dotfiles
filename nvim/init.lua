@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -61,6 +60,7 @@ vim.o.smartindent = true
 
 -- Save undo history
 vim.o.undofile = true
+vim.o.undolevels = 10000
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -75,8 +75,22 @@ vim.o.termguicolors = true
 vim.cmd [[colorscheme duskfox]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 
+-- size of indent
+vim.o.shiftwidth = 2
+
+--
+vim.o.shiftround = true
+
+-- Dont showmode since we have a statusline
+vim.o.showmode = false
+
+--Sync with system clipboard
+vim.o.clipboard = "unnamedplus"
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 
 -- Keymap for NvimTree
 keymap('n', '<leader>fe', ':NvimTreeToggle<cr>', {desc = "Toggle File explorer",noremap = true, silent = true})
@@ -84,9 +98,10 @@ keymap('n', '<leader>fe', ':NvimTreeToggle<cr>', {desc = "Toggle File explorer",
 -- Cycle the buffer tabs
 keymap('n', '<S-TAB>', ':BufferLineCycleNext<cr>', opts)
 
+-- golang 
 -- go run the current file
 --keymap('n', '<C-r>', ':terminal go run %<cr>', opts)
-keymap('n', '<C-r>', ':TermExec cmd="go run %" <cr>', opts)
+keymap('n', '<C-r>', ':TermExec cmd="go run %" direction=float <cr>', opts)
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -172,33 +187,11 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'c', 'cpp','html', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<c-backspace>',
-    },
-  },
   textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
@@ -219,6 +212,19 @@ require('nvim-treesitter.configs').setup {
         ['[]'] = '@class.outer',
       },
     },
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
     swap = {
       enable = true,
       swap_next = {
@@ -227,6 +233,15 @@ require('nvim-treesitter.configs').setup {
       swap_previous = {
         ['<leader>A'] = '@parameter.inner',
       },
+    },
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<c-backspace>',
     },
   },
 }
@@ -295,12 +310,12 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },

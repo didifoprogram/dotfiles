@@ -34,6 +34,12 @@ return {
    'tpope/vim-rhubarb',
    'lewis6991/gitsigns.nvim',
 
+    -- tmux
+   'christoomey/vim-tmux-navigator',
+
+   -- Starter Page
+   'goolord/alpha-nvim',
+
    'kyazdani42/nvim-web-devicons',
    'EdenEast/nightfox.nvim', -- Theme
    'nvim-lualine/lualine.nvim', -- Fancier statusline
