@@ -34,6 +34,9 @@ return {
    'tpope/vim-rhubarb',
    'lewis6991/gitsigns.nvim',
 
+    -- rust
+    'simrat39/rust-tools.nvim',
+
     -- tmux
    'christoomey/vim-tmux-navigator',
 
@@ -41,10 +44,14 @@ return {
    'goolord/alpha-nvim',
 
    'kyazdani42/nvim-web-devicons',
+
    'EdenEast/nightfox.nvim', -- Theme
+
    'nvim-lualine/lualine.nvim', -- Fancier statusline
+
    --'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
    'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+
    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)

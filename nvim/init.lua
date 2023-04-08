@@ -101,7 +101,7 @@ keymap('n', '<S-TAB>', ':BufferLineCycleNext<cr>', opts)
 -- golang 
 -- go run the current file
 --keymap('n', '<C-r>', ':terminal go run %<cr>', opts)
-keymap('n', '<C-r>', ':TermExec cmd="go run %" direction=float <cr>', opts)
+--keymap('n', '<C-r>', ':TermExec cmd="go run %" direction=float <cr>', opts)
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -312,7 +312,7 @@ local servers = {
   -- clangd = {},
   gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {},
   -- tsserver = {},
 
   lua_ls = {
